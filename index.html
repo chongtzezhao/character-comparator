@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+  <h1>Text Comparator (Character by Character)</h1>
+  <div style="display: flex; flex-direction: row;">
+    <div class="container">
+      <div class="backdrop">
+        <div class="highlights">
+          <!-- cloned text with <mark> tags here -->
+        </div>
+      </div>
+      <textarea id="text1">
+        <!-- user input here -->
+      </textarea>
+    </div>
+    <div class="container">
+      <div class="backdrop">
+        <div class="highlights">
+          <!-- cloned text with <mark> tags here -->
+        </div>
+      </div>
+      <textarea id="text2">
+        <!-- user input here -->
+      </textarea>
+    </div>
+  </div>
+  <button onclick="compare()">Compare</button>
+
+  <script>
+
+    $("#text1").on({
+      'input': handleInput,
+      'scroll': handleScroll
+    });
+    $("#text2").on({
+      'input': handleInput,
+      'scroll': handleScroll
+    });
+
+    function applyHighlights(text, otherText) {
+      let lines1 = text.split("\n");
+      let lines2 = otherText.split("\n");
+      let res = [];
+      let i;
+      for(i = 0; i < Math.min(lines1.length, lines2.length); ++i){
+        let line1 = lines1[i];
+        let line2 = lines2[i];
+        let j;
+        let tmp = "";
+        for(j = 0; j < Math.min(line1.length, line2.length); ++j){
+          if(line1[j] == line2[j]){
+            tmp += line1[j];
+          }
+          else{
+            if(tmp.endsWith("</mark>"))
+              tmp = tmp.substring(0, tmp.length - 7);
+            else
+              tmp += "<mark>";
+            tmp += line1[j] + "</mark>";
+          }
+        }
+        while(j < line1.length){
+          tmp += line1[j];
+          ++j;
+        }
+        console.log(tmp);
+        res.push(tmp);
+      }
+      while(i < lines1.length){
+        res.push(lines1[i]);
+        ++i;
+      }
+      return res.join("\n");
+    }
+
+    function handleInput() {
+      var text = $("#text1").val();
+      var otherText = $("#text2").val();
+      var highlightedText1 = applyHighlights(text, otherText);
+      var highlightedText2 = applyHighlights(otherText, text);
+      $("#text1")[0].previousElementSibling.firstElementChild.innerHTML = highlightedText1;
+      $("#text2")[0].previousElementSibling.firstElementChild.innerHTML = highlightedText2;
+    }
+
+    function handleScroll() {
+      var scrollTop = this.scrollTop();
+      this.previousElementSibling.scrollTop(scrollTop);
+    }
+  </script>
+</body>
+</html>

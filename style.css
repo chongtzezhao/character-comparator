@@ -1,0 +1,51 @@
+textarea {
+  margin: 0;
+  border-radius: 0;
+}
+
+.backdrop {
+  overflow: auto;
+}
+
+.highlights {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 1em;
+  font-family: monospace;
+}
+
+textarea {
+  color: #444; /* or whatever */
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  font-size: 1em;
+}
+
+.highlights {
+  left: 2.9px;
+  top: 3.5px;
+  position: absolute;
+  color: transparent;
+  height: 100%;
+  width: 100%;
+}
+
+mark {
+  color: transparent;
+  background-color: #ed9190; /* or whatever */
+}
+
+.backdrop {
+  position: absolute;
+  background-color: #fff; /* or whatever */
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  position: relative;
+  height: 90vh;
+  width: 45vw;
+}
