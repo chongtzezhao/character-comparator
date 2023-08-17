@@ -57,20 +57,22 @@
             if(tmp.endsWith("</mark>"))
               tmp = tmp.substring(0, tmp.length - 7);
             else
-              tmp += "<mark>";
+              tmp += "<mark class=\"textdiff\">";
             tmp += line1[j] + "</mark>";
           }
         }
-        while(j < line1.length){
-          tmp += line1[j];
-          ++j;
-        }
+	tmp += "<mark class=\"textadd\">";
+	tmp += line1.slice(j);
+	tmp +=  "</mark>";
         console.log(tmp);
         res.push(tmp);
       }
-      while(i < lines1.length){
-        res.push(lines1[i]);
-        ++i;
+      while(i < lines1.length){	
+	let tmp = "<mark class=\"textadd\">";
+        tmp += lines1[i];
+	tmp += "</mark>";
+        res.push(tmp);
+	++i;
       }
       return res.join("\n");
     }
